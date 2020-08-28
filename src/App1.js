@@ -1,18 +1,23 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import axios from 'axios';
-import uuid from 'uuid'
+import uuid from 'react-uuid';
+import Rating from "@material-ui/lab/Rating";
+import Button from '@material-ui/core/Button';
+
+import ReactModal from 'react-modal';
 
 import { usePosition } from './Hooks/usePosition';
 import locations from './nearByRestaurants';
-import Restaurant from './Restaurant';
 import AddRestaurant from './components/AddRestaurant';
-import SearchRestaurant from './components/SearchRestaurant';
+import Restaurant from './Restaurant';
+
 
 const libraries = ["places"]
 const mapContainerStyle = {
   width: '80vw',
-  height: '80vh'
+  height: '80vh',
+  position: 'relative'
 }
 
 const options = {
@@ -26,46 +31,46 @@ const App1 = () => {
     libraries
   })
 
-  // const { latitude, longitude, error } = usePosition();
   const [currentPosition, setCurrentPosition] = useState({});
-  const [selected, setSelected] = useState(null);
-  const [restaurants, addRestaurant] = useState(locations)
-  const [markers, setMarkers] = useState([])
-  const [searchTerm, setSearchTerm] = useState('');
-  const [searchResult, setSearchResult] = useState([]);
+  // Check if a location is clicked on the Map
+  const [selected, setSelected] = useState(false);
+
+  // State to load up local JSON data
+  const [restaurants, addRestaurant] = useState(locations);
+
+  //Set New Restaurant Coordinate
+  const [lat, getLat] = useState(0)
+  const [lng, getLng] = useState(0)
+
+  // Filtering state for Ratings
+  const [filterRating, setfilterRating] = useState({
+    filterRatingValue: 5,
+  });
+
+  // Detecting the rating input change
+  const onFilterRatingChange = (event) => {
+    setfilterRating({
+      filterRatingValue: event.target.value,
+    });
+  };
+
   const [feeds, setFeeds] = useState([])
 
-  const onMapClick = React.useCallback((event) => {
-    setMarkers(current => [
-      ...current, {
-        lat: event.latLng.lat(),
-        lng: event.latLng.lng()
-      }])
-  }, [])
+  const onMapClick = (event) => {
+    console.log(event.latLng);
+    let lat = event.latLng.lat();
+    let lng = event.latLng.lng();
+
+    // Setting the clicked point states
+    getLat(lat);
+    getLng(lng);
+    setSelected(true)
+
+  };
 
   // Passing input to filter restaurant review
-  const handleChange = event => {
-    setSearchTerm(event.target.value)
-  }
-
-  // Adding an ID manually to the locations array
-  const setRestaurant = restaurant => {
-    restaurant.id = restaurant.length + 1;
-    addRestaurant([...restaurants, restaurant]);
-  }
-
-
-  // useEffect(() => {
-  //   const result = restaurants.filter(locate => {
-  //     console.log(locate)
-  //     return locate
-  //   })
-
-  //   setSearchResult(result)
-
-  // }, [searchTerm])
-  const onSelect = foodPlace => {
-    setSelected(foodPlace);
+  const handleClose = event => {
+    setOpen(false)
   }
 
   // Retrieving User Location
@@ -75,21 +80,21 @@ const App1 = () => {
       lng: position.coords.longitude
     }
     setCurrentPosition(currentPosition);
-    console.log(currentPosition)
+
   };
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(success);
   })
+
   useEffect(() => {
-    console.log(currentPosition)
     axios
       .get(
       `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${currentPosition.lat},${currentPosition.lng}&radius=2000&type=restaurant&key=AIzaSyAKrsTZlN-C-eEq1D8nEwtSDnDd9xtknkI`
       )
       .then((res) => {
         let Feeds = res.data.results;
-        console.log(Feeds);
+        console.log(Feeds)
         setFeeds(Feeds);
       });
   }, [currentPosition.lat, currentPosition.lng]);
@@ -101,22 +106,20 @@ const App1 = () => {
   return <div className="map-section">
     <GoogleMap
       mapContainerStyle={mapContainerStyle}
-      zoom={13}
+      zoom={16}
       center={currentPosition}
       options={options}
       onClick={onMapClick}
 
     >
-      {markers.map((marker, index) => (<Marker key={index} position={{ lat: marker.lat, lng: marker.lng }}
-        onClick={() => { setSelected(marker) }}
-      />))}
-      {locations.map((foodPlace, index) => {
+      {feeds.map((foodPlace, index) => {
         // console.log('lat:', foodPlace.lat, 'long:', foodPlace.long);
+
         const position = {
-          lat: foodPlace.lat,
-          lng: foodPlace.long
+          lat: foodPlace.geometry.location.lat,
+          lng: foodPlace.geometry.location.lng
         };
-        return (<Marker
+        return foodPlace.rating <= filterRating.filterRatingValue ? (<Marker
           icon={{
             path:
               "M7 0c-3.314 0-6 3.134-6 7 0 3.31 1.969 6.083 4.616 6.812l-0.993 16.191c-0.067 1.098 0.778 1.996 1.878 1.996h1c1.1 0 1.945-0.898 1.878-1.996l-0.993-16.191c2.646-0.729 4.616-3.502 4.616-6.812 0-3.866-2.686-7-6-7zM27.167 0l-1.667 10h-1.25l-0.833-10h-0.833l-0.833 10h-1.25l-1.667-10h-0.833v13c0 0.552 0.448 1 1 1h2.604l-0.982 16.004c-0.067 1.098 0.778 1.996 1.878 1.996h1c1.1 0 1.945-0.898 1.878-1.996l-0.982-16.004h2.604c0.552 0 1-0.448 1-1v-13h-0.833z",
@@ -125,79 +128,55 @@ const App1 = () => {
             strokeWeight: 0,
             scale: 1,
           }}
-          key={index} onClick={() => console.log("I have been clicked")} position={position} />)
+          key={index} onClick={() => console.log("I have been clicked")} position={position} />) : null
       }
       )
       }
-      {console.log(feeds)}
       {
         currentPosition.lat && (<Marker onClick={() => console.log("I have been clicked")}
           icon={"https://maps.google.com/mapfiles/ms/icons/blue-dot.png"}
           position={currentPosition}
         />)
       }
-      {selected ?
-        (
-          <InfoWindow
-            position={{ lat: selected.lat, lng: selected.lng }}
-            clickable={true}
-            onCloseClick={() => setSelected({})}
-          >
-            <AddRestaurant setRestaurant={setRestaurant} />
 
-          </InfoWindow>
-        ) : null
-      }
+
+      {selected ? (<InfoWindow position={{ lat: lat, lng: lng }}><AddRestaurant feeds={feeds} setFeeds={setFeeds} location={{ lat, lng }} />
+
+      </InfoWindow>) : null}
 
     </GoogleMap>
     <div>
       <>
-      <label htmlFor='restaurants'>Filter by Review:
-        <select id='restaurants'
-          onChange={handleChange}
-        ><option value='all'>All</option>
-          <option value='1'>1
-          </option>
-          <option value='2'>2
-          </option>
-          <option value='3'>3
-          </option>
-          <option value='4'>4
-          </option>
-          <option value='5'>5
-          </option>
-        </select>
-      </label>
+      <label htmlFor='restaurants'>Filter by Review:</label>
+      <Rating
+        name="half-rating"
+        precision={0.5}
+        value={filterRating.filterRatingValue}
+        onChange={onFilterRatingChange}
+      />
+      <Restaurant feeds={feeds} filterRating={filterRating.filterRatingValue} />
+
       </>
-      <section>Hello: {
-        feeds.map((foodPlace, index) => (
-          <div key={index}>
-            <h2>Name: {foodPlace.name}</h2>
-            <h2>Business Status: {foodPlace.business_status}</h2>
-            <h3>Address: {foodPlace.vicinity}</h3>
-            <span><small>Latitude: {foodPlace.geometry.location.lat}</small><small> Longitude: {foodPlace.geometry.location.lng}</small></span>
-            <h4>Place Id: {foodPlace.place_id}</h4>
-          </div>
-        ))
-      }
-      </section>
-      {/* {
-        searchResult.map((search, index) => (
-          <div key={index}>
-            <h2>Name: {search.restaurantName}</h2>
-            <h3>Address: {search.address}</h3>
-            <span><small>Latitude: {search.lat}</small><small> Longitude: {search.long}</small></span>
-            {search.ratings.map((avrg, i) => (
-              <div key={i}>Ratings:
-        <h4>Star: {avrg.stars}</h4>
-                <p>Comment: {avrg.comment}</p>
-              </div>
-            ))}
-          </div>
-        ))
-      } */}
     </div>
   </div>
 }
 
 export default App1;
+const modal = {
+
+  position: 'relative',
+  top: '50%',
+  bottom: '50%',
+  backgroundColor: 'gray',
+  width: '30%',
+  height: '50%;'
+}
+const overlay = {
+
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  backgroundColor: 'gray',
+}

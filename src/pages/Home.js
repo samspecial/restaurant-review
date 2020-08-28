@@ -1,6 +1,5 @@
 import React from 'react';
 import Navigation from '../components/Navigation';
-import SearchRestaurant from '../components/SearchRestaurant';
 import '../App.css'
 import App1 from '../App1';
 import HeroSection from '../components/HeroSection';

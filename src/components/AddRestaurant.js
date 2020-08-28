@@ -1,64 +1,73 @@
 import React, { useState } from 'react';
+import { useRestaurant } from './useRestaurant';
+import Rating from "@material-ui/lab/Rating";
+import uuid from 'react-uuid';
 
-const AddRestaurant = (props) => {
-  const initialState = {
-    restuarantName: '',
-    address: '',
-    lat: '',
-    long: '',
-    ratings: [
-      {
-        stars: null,
-        comment: ''
-      }
-    ]
+const AddRestaurant = ({ feeds, setFeeds, location }) => {
+
+  //Setting state for new restaurants
+  const [values, handleChange] = useRestaurant({ restaurantName: '', vicinity: '' });
+  const [restaurantStatus, getStatus] = useState(false)
+  const [star, setRating] = useState(0);
+
+  const changeRating = (event, newValue) => {
+    setRating(newValue);
   }
 
-  const [restaurants, setRestaurants] = useState(initialState);
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setRestaurants({ ...restaurants, [name]: value })
-  }
+  // Create New Restaurant
+  let place_id = uuid();
+
+  const newRestaurant = {
+    place_id: place_id,
+    name: values.restaurantName,
+    icon: "https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png",
+    vicinity: values.vicinity,
+    rating: star,
+    geometry: {
+      location: {
+        lat: location.lat, //lat from the state
+        lng: location.lng //lng from the state
+      },
+    },
+  };
+
   const addRestaurant = (event) => {
     event.preventDefault()
-    console.log(restaurants)
-    props.setRestaurant(restaurants)
-    setRestaurants(initialState)
+    const { name, rating, vicinity } = newRestaurant;
+    if (name && vicinity && rating) {
+
+      let cloneFeeds = JSON.parse(JSON.stringify(feeds));
+      cloneFeeds.push(newRestaurant);
+      setFeeds(cloneFeeds)
+      getStatus(true)
+      alert(`${name} added Successful. check restaurant section `)
+    } else {
+      alert(`${name}, ${vicinity} and ${rating} can't be left blank.`)
+    }
   }
+
   return (
     <form onSubmit={addRestaurant}>
-      <label htmlFor='restuarantName'>Restaurant Name:
-    <input id='restuarantName'
+      <label htmlFor='restaurantName'>Restaurant Name:
+    <input id='restaurantName'
           type='text'
-          name='restuarantName'
+          name='restaurantName'
           onChange={handleChange}
-          value={restaurants.restuarantName}
+          value={values.restaurantName}
         />
       </label>
-      <label htmlFor='address'>Address:
-    <input id='address'
+      <label htmlFor='vicinity'>Address:
+    <input id='vicinity'
           type='text'
-          name='address'
+          name='vicinity'
           onChange={handleChange}
-          value={restaurants.address}
-        />
-      </label>
-      <label htmlFor='lat'>Lat:
-    <input id='lat'
-          type='number'
-          name='lat'
-          onChange={handleChange}
-          value={restaurants.lat}
-        />
-      </label>
-      <label htmlFor='long'>Long:
-    <input id='long'
-          type='number'
-          name='long'
-          onChange={handleChange}
-          value={restaurants.long}
-        />
-      </label>
+          value={values.vicinity}
+        /></label>
+      <Rating
+        precision={1}
+        name="simple-controlled"
+        value={star}
+        onChange={changeRating} />
       <button type='submit'>Add Restaurant</button>
     </form>
   )
