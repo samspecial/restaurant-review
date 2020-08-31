@@ -3,9 +3,6 @@ import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps
 import axios from 'axios';
 import uuid from 'react-uuid';
 import Rating from "@material-ui/lab/Rating";
-import Button from '@material-ui/core/Button';
-
-import ReactModal from 'react-modal';
 
 import { usePosition } from './Hooks/usePosition';
 import locations from './nearByRestaurants';
@@ -64,7 +61,7 @@ const App1 = () => {
     // Setting the clicked point states
     getLat(lat);
     getLng(lng);
-    setSelected(true)
+    setSelected(!selected)
 
   };
 
@@ -113,8 +110,7 @@ const App1 = () => {
 
     >
       {feeds.map((foodPlace, index) => {
-        // console.log('lat:', foodPlace.lat, 'long:', foodPlace.long);
-
+        // Creating a position object using the lat and lng from the Places API
         const position = {
           lat: foodPlace.geometry.location.lat,
           lng: foodPlace.geometry.location.lng
@@ -162,21 +158,3 @@ const App1 = () => {
 }
 
 export default App1;
-const modal = {
-
-  position: 'relative',
-  top: '50%',
-  bottom: '50%',
-  backgroundColor: 'gray',
-  width: '30%',
-  height: '50%;'
-}
-const overlay = {
-
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
-  backgroundColor: 'gray',
-}

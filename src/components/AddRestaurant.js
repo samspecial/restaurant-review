@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { useRestaurant } from './useRestaurant';
 import Rating from "@material-ui/lab/Rating";
+import { Form, Input, Button } from './RestaurantStyles';
 import uuid from 'react-uuid';
 
 const AddRestaurant = ({ feeds, setFeeds, location }) => {
 
   //Setting state for new restaurants
-  const [values, handleChange] = useRestaurant({ restaurantName: '', vicinity: '' });
-  const [restaurantStatus, getStatus] = useState(false)
+  const [values, handleChange] = useRestaurant({
+    restaurantName: '',
+    vicinity: '',
+  });
   const [star, setRating] = useState(0);
 
   const changeRating = (event, newValue) => {
@@ -34,22 +37,18 @@ const AddRestaurant = ({ feeds, setFeeds, location }) => {
   const addRestaurant = (event) => {
     event.preventDefault()
     const { name, rating, vicinity } = newRestaurant;
-    if (name && vicinity && rating) {
+    if (!name || !vicinity || !rating) return
 
-      let cloneFeeds = JSON.parse(JSON.stringify(feeds));
-      cloneFeeds.push(newRestaurant);
-      setFeeds(cloneFeeds)
-      getStatus(true)
-      alert(`${name} added Successful. check restaurant section `)
-    } else {
-      alert(`${name}, ${vicinity} and ${rating} can't be left blank.`)
-    }
+    let cloneFeeds = JSON.parse(JSON.stringify(feeds));
+    cloneFeeds.push(newRestaurant);
+    setFeeds(cloneFeeds);
+    alert(`${name} added Successful. check restaurant section `)
   }
 
   return (
-    <form onSubmit={addRestaurant}>
+    <Form onSubmit={addRestaurant}>
       <label htmlFor='restaurantName'>Restaurant Name:
-    <input id='restaurantName'
+    <Input id='restaurantName'
           type='text'
           name='restaurantName'
           onChange={handleChange}
@@ -57,7 +56,7 @@ const AddRestaurant = ({ feeds, setFeeds, location }) => {
         />
       </label>
       <label htmlFor='vicinity'>Address:
-    <input id='vicinity'
+    <Input id='vicinity'
           type='text'
           name='vicinity'
           onChange={handleChange}
@@ -68,8 +67,8 @@ const AddRestaurant = ({ feeds, setFeeds, location }) => {
         name="simple-controlled"
         value={star}
         onChange={changeRating} />
-      <button type='submit'>Add Restaurant</button>
-    </form>
+      <Button type='submit'>Add Restaurant</Button>
+    </Form>
   )
 
 }

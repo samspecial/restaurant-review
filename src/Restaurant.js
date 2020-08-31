@@ -1,6 +1,6 @@
 import React from 'react';
 import Rating from '@material-ui/lab/Rating';
-import expand from './assets/expand.svg'
+import expand from './assets/expand.svg';
 const Restaurant = (props) => {
   return (
 
@@ -11,7 +11,8 @@ const Restaurant = (props) => {
             <img src={feed.icon} />
             <div>
               <h2>{feed.name}</h2>
-              <p>{feed.vicinity}</p>
+              <p>{feed.vicinity.substring(0, 40)}</p>
+              <small>{feed.open_now}</small>
               <Rating
                 name="half-rating"
                 precision={0.5}
