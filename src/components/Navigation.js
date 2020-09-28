@@ -7,11 +7,11 @@ const Navigation = () => {
     <Nav>
       <img src={logo} alt="Best restaurant review site" />
       <ul>
-        <li>Home</li>
-        <li>About</li>
-        <li>Contact</li>
-        <li>Login</li>
-        <li>Sign Up</li>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Login</a></li>
+        <li><a href="#">Sign Up</a></li>
       </ul>
     </Nav>
   )
@@ -21,8 +21,8 @@ export default Navigation;
 const Nav = styled.nav`
 width:100%;
 height:100px;
-// position:sticky;
-background:transparent;
+position:fixed;
+background:#eee;
 padding:20px 80px;
 display:flex;
 justify-content:space-between;
@@ -47,19 +47,16 @@ ul{
     font-size:0.8rem;
   }
   li:last-child{
-    border:1px solid white;
+    border:1px solid #FF8B18;
   }
 
+  li a{
+    text-decoration:none;
+    cursor:pointer;
+    color:#FF8B18;
+    padding:10px 20px;
+    display:block;
+
+  }
 `;
 
-// const ListItem = styled.ul`
-// list-style-type:none;
-// display:flex;
-// width:70%;
-// justify-content:flex-end;
-
-// li{
-//   padding:0 20px;
-// }
-
-// `;

@@ -18,12 +18,12 @@ import {
 } from './Hooks/usePosition';
 import locations from './nearByRestaurants';
 import AddRestaurant from './components/AddRestaurant';
-import Restaurant from './Restaurant';
+import RestaurantContainer from './components/RestaurantContainer';
 
-
+import './App.css';
 const libraries = ["places"]
 const mapContainerStyle = {
-  width: '60vw',
+  width: '60%',
   height: '80vh',
   position: 'relative'
 }
@@ -68,7 +68,7 @@ const App1 = () => {
   const [feeds, setFeeds] = useState([])
 
   const onMapClick = (event) => {
-    console.log(event.latLng);
+
     let lat = event.latLng.lat();
     let lng = event.latLng.lng();
 
@@ -168,13 +168,14 @@ const App1 = () => {
             location={
               { lat, lng }
             }
+            onClose={() => { setSelected(!selected) }}
           />
 
         </InfoWindow>) : null}
 
     </GoogleMap>
-    <div>
-      <>
+    <div className="restaurant-group">
+
       <label htmlFor='restaurants'> Filter by Review: </label>
       <Rating name="half-rating"
         precision={
@@ -183,9 +184,10 @@ const App1 = () => {
         value={
           filterRating.filterRatingValue
         }
-        onChange={onFilterRatingChange} /> < Restaurant feeds={feeds} filterRating={filterRating.filterRatingValue} />
+        onChange={onFilterRatingChange} />
+      < RestaurantContainer className="contain" feeds={feeds} filterRating={filterRating.filterRatingValue} />
 
-      </>
+
     </div>
   </div>
 }
