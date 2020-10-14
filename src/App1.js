@@ -20,10 +20,11 @@ import locations from './nearByRestaurants';
 import AddRestaurant from './components/AddRestaurant';
 import RestaurantContainer from './components/RestaurantContainer';
 
+import './reset.css';
 import './App.css';
 const libraries = ["places"]
 const mapContainerStyle = {
-  width: '60%',
+  width: '70%',
   height: '80vh',
   position: 'relative'
 }
@@ -105,8 +106,9 @@ const App1 = () => {
       )
       .then((res) => {
         let Feeds = res.data.results;
-        console.log(Feeds)
-        setFeeds(Feeds);
+        const allResult = locations.concat(Feeds);
+        console.log(allResult);
+        setFeeds(allResult);
       });
   }, [currentPosition.lat, currentPosition.lng]);
 
@@ -185,8 +187,8 @@ const App1 = () => {
           filterRating.filterRatingValue
         }
         onChange={onFilterRatingChange} />
-      < RestaurantContainer className="contain" feeds={feeds} filterRating={filterRating.filterRatingValue} />
 
+      < RestaurantContainer feeds={feeds} filterRating={filterRating.filterRatingValue} />
 
     </div>
   </div>

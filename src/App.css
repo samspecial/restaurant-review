@@ -16,7 +16,7 @@ width:100%;
 }
 
 .restaurant-group{
-  width:40%;
+  width:30%;
   
 }
 
@@ -37,3 +37,9 @@ z-index:3;
 
 /* Restaurant Details */
 
+.contain{
+  width: 100%;
+  height:fit-content;
+  display:flex;
+  flex-wrap:wrap;
+}

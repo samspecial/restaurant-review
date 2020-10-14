@@ -4,6 +4,7 @@ import Rating from '@material-ui/lab/Rating';
 import expand from '../assets/expand.svg';
 import axios from 'axios';
 import styled from "styled-components";
+import '../App.css';
 
 const Restaurant = ({ feed, review, getPlaceDetails }) => {
   const [toggle, toggleButton] = useState(false);
@@ -13,46 +14,40 @@ const Restaurant = ({ feed, review, getPlaceDetails }) => {
     toggleButton(!toggle)
     getPlaceDetails(place_id);
   }
+
+  // Review Form Event Handler
+  const newReviewForm = (e) => {
+    e.preventDefault();
+  }
   return (
-    <Aside>
-      <div className="contain">
-        <Image src={feed.icon} />
-        <div>
-          <h2>{feed.name}</h2>
-          <p>{feed.vicinity.length >= 30 ? feed.vicinity.substring(0, 30) : feed.vicinity}</p>
-          <small>{feed.open_now}</small>
-          <Rating
-            name="half-rating"
-            precision={0.5}
-            defaultValue={feed.rating}
-            size="small"
-            readOnly
-          />
-          <Icon src={expand} onClick={() => handleDropDown(feed.place_id)} />
-          {toggle ? (review.map((placeReview, index) => {
-            return <div key={index}>
-              <h3>{placeReview.author_name}</h3>
-              <h3>{placeReview.author_url}</h3>
-              <p>{placeReview.text}</p>
-              <small>{placeReview.rating}</small>
-              <button type="button">Add Review</button>
-            </div>
-          })) : null}
-        </div>
+
+    <Div>
+      <Image src={feed.icon} />
+      <div>
+        <h2>{feed.name}</h2>
+        <p>{feed.vicinity.length >= 30 ? feed.vicinity.substring(0, 30) : feed.vicinity}</p>
+        <small>{feed.open_now}</small>
+        <Rating
+          name="half-rating"
+          precision={0.5}
+          defaultValue={feed.rating}
+          size="small"
+          readOnly
+        />
+        <Icon src={expand} onClick={() => handleDropDown(feed.place_id)} toggle={toggle} review={review} />
+
       </div>
-    </Aside>
+    </Div>
   )
 }
 
 export default Restaurant;
 
-const Aside = styled.aside`
-width:100%;
+const Div = styled.div`
+width:50%;
 height:auto;
 background:#f7f7f7;
 padding:0.5rem;
-
-
 
 h2{
   font - weight: 700;

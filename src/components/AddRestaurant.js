@@ -4,7 +4,7 @@ import Rating from "@material-ui/lab/Rating";
 import { Form, Input, Button } from './RestaurantStyles';
 import uuid from 'react-uuid';
 
-const AddRestaurant = ({ feeds, setFeeds, location }) => {
+const AddRestaurant = ({ feeds, setFeeds, location, onClose }) => {
 
   //Setting state for new restaurants
   const [values, handleChange] = useRestaurant({
@@ -42,7 +42,8 @@ const AddRestaurant = ({ feeds, setFeeds, location }) => {
     let cloneFeeds = JSON.parse(JSON.stringify(feeds));
     cloneFeeds.push(newRestaurant);
     setFeeds(cloneFeeds);
-    alert(`${name} added Successful. check restaurant section `)
+    alert(`${name} added Successful. check restaurant section`);
+    onClose();
   }
 
   return (

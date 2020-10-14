@@ -3,7 +3,7 @@ import styled from 'styled-components'
 const HeroSection = () => {
   return (
     <Section>
-      <h1>Find Restaurants near you</h1>
+      <h1>Find Restaurants Near You</h1>
       <p>Search, rate and review restaurants in your area or find your new favorite spot</p>
 
     </Section>
@@ -13,6 +13,7 @@ const HeroSection = () => {
 const Section = styled.div`
 padding:4rem 8rem;
 height:600px;
+width:100%;
 display:flex;
 flex-direction:column;
 justify-content:center;

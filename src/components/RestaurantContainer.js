@@ -20,24 +20,15 @@ const RestaurantContainer = ({ feeds, filterRating }) => {
   })
   return (
 
-    <Div>
+    <div className="contain">
       {feeds.map((feed, index) =>
         feed.rating <= filterRating ? (
-          <Restaurant key={index} feed={feed} review={review} getPlaceDetails={getPlaceDetails} />
+          <Restaurant key={index} feed={feed} review={review} fiterRating={filterRating} getPlaceDetails={getPlaceDetails} />
         ) : (<span key={index}></span>))
 
       }
-    </Div>
+    </div>
   )
 }
 
 export default RestaurantContainer;
-
-const Div = styled.div`
-width: 90%;
-padding 0.7rem 0.9s5rem;
-display:flex;
-margin:0 auto;
-
-
-`

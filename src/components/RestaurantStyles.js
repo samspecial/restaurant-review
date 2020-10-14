@@ -1,16 +1,21 @@
 import styled from 'styled-components';
 
 export const Form = styled.form`
-width:400px;
+width:100%;
 height:300px;
 box-shadow:0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.24),0 10px 10px rgba(0,0,0,0.23), 0 10px 10px rgba(0,0,0,0.22);
-padding:1rem;
+padding:1rem 0.5rem;
 display:flex;
 flex-direction:column;
 justify-content:space-around;
 align-items:flex-start;
 background-color:white !important;
 margin:0 auto;
+
+label{
+    margin-bottom:0.5rem;
+    font-size:0.85rem;
+}
 `;
 
 export const Input = styled.input`
@@ -24,6 +29,7 @@ padding-top:15px;
 padding-left:5px;
 display:block;
 font-weight:bold;
+margin-top:0.7rem;
 `;
 
 export const Button = styled.button`
@@ -63,7 +69,7 @@ animation:fadeUp 0.5s ease-in-out 0.7s forwards;
 } 
 
 @media only screen and (min-width:769px){
-     width:130px;
+     width:150px;
      font-size:16px;
      font-weight:bold;
      height:45px;
