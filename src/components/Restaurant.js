@@ -5,12 +5,13 @@ import expand from '../assets/expand.svg';
 import axios from 'axios';
 import styled from "styled-components";
 import '../App.css';
+import ReviewContainer from './ReviewContainer';
+import RestaurantReview from './RestaurantReview';
 
-const Restaurant = ({ feed, review, getPlaceDetails }) => {
+const Restaurant = ({ feed, reviews, getPlaceDetails }) => {
   const [toggle, toggleButton] = useState(false);
 
   const handleDropDown = (place_id) => {
-    console.log(place_id)
     toggleButton(!toggle)
     getPlaceDetails(place_id);
   }
@@ -30,11 +31,13 @@ const Restaurant = ({ feed, review, getPlaceDetails }) => {
         <Rating
           name="half-rating"
           precision={0.5}
-          defaultValue={feed.rating}
+          value={feed.rating}
           size="small"
           readOnly
         />
-        <Icon src={expand} onClick={() => handleDropDown(feed.place_id)} toggle={toggle} review={review} />
+        <Icon src={expand} onClick={() => handleDropDown(feed.place_id)} />
+        {/* {!toggle && <ReviewContainer reviews={reviews} />} */}
+        {!toggle ? <RestaurantReview reviews={reviews} /> : null}
 
       </div>
     </Div>

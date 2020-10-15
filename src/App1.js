@@ -48,7 +48,7 @@ const App1 = () => {
   const [selected, setSelected] = useState(false);
 
   // State to load up local JSON data
-  const [restaurants, addRestaurant] = useState(locations);
+  const [jsonRestaurants, addRestaurants] = useState(locations);
 
   //Set New Restaurant Coordinate
   const [lat, getLat] = useState(0)
@@ -106,9 +106,8 @@ const App1 = () => {
       )
       .then((res) => {
         let Feeds = res.data.results;
-        const allResult = locations.concat(Feeds);
-        console.log(allResult);
-        setFeeds(allResult);
+
+        setFeeds(Feeds);
       });
   }, [currentPosition.lat, currentPosition.lng]);
 
@@ -165,11 +164,12 @@ const App1 = () => {
             lng: lng
           }
         }>
-          <AddRestaurant feeds={feeds}
-            setFeeds={setFeeds}
+          <AddRestaurant
+            addRestaurants={addRestaurants}
             location={
               { lat, lng }
             }
+            jsonRestaurants={jsonRestaurants}
             onClose={() => { setSelected(!selected) }}
           />
 
