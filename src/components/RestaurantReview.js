@@ -19,9 +19,6 @@ const RestaurantReview = ({ review }) => {
     <button type="button">Add Review</button>
   </div>
 
-
-
-
 }
 
 export default RestaurantReview;
