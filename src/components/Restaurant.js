@@ -13,6 +13,8 @@ const Restaurant = ({ feed, reviews, getPlaceDetails }) => {
 
   const handleDropDown = (place_id) => {
     toggleButton(!toggle)
+    console.log(toggle)
+    console.log(reviews)
     getPlaceDetails(place_id);
   }
 
@@ -36,8 +38,26 @@ const Restaurant = ({ feed, reviews, getPlaceDetails }) => {
           readOnly
         />
         <Icon src={expand} onClick={() => handleDropDown(feed.place_id)} />
-        {/* {!toggle && <ReviewContainer reviews={reviews} />} */}
-        {!toggle ? <RestaurantReview reviews={reviews} /> : null}
+        {!toggle ? <ReviewContainer reviews={reviews} reviews={reviews} /> : null}
+        {/* {!toggle ? <RestaurantReview reviews={reviews} /> : null} */}
+        {/* {!toggle ? (<div>
+          {reviews.map((review, index) => {
+            return <div key={index}>
+              <h3>{review.author_name}</h3>
+              <p>{review.text}</p>
+              <Rating
+                name="half-rating"
+                precision={0.5}
+                value={review.rating}
+                size="small"
+                readOnly
+              />
+
+              <button type="button">Add Review</button>
+            </div>
+          })}
+
+        </div>) : null} */}
 
       </div>
     </Div>

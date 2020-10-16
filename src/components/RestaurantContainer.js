@@ -12,6 +12,7 @@ const RestaurantContainer = ({ feeds, filterRating }) => {
       .then(
       (response) => {
         let placesResult = response.data.result.reviews;
+        console.log(place_id)
         setReview(placesResult)
       })
   })
