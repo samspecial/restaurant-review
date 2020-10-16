@@ -16,7 +16,7 @@ const RestaurantReview = ({ review }) => {
       readOnly
     />
 
-    <button type="button">Add Review</button>
+
   </div>
 
 }

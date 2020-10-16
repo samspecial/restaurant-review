@@ -38,7 +38,7 @@ const Restaurant = ({ feed, reviews, getPlaceDetails }) => {
           readOnly
         />
         <Icon src={expand} onClick={() => handleDropDown(feed.place_id)} />
-        {!toggle ? <ReviewContainer reviews={reviews} reviews={reviews} /> : null}
+        {toggle ? <ReviewContainer reviews={reviews} reviews={reviews} /> : null}
         {/* {!toggle ? <RestaurantReview reviews={reviews} /> : null} */}
         {/* {!toggle ? (<div>
           {reviews.map((review, index) => {
