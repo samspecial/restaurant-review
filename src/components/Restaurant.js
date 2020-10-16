@@ -6,7 +6,6 @@ import axios from 'axios';
 import styled from "styled-components";
 import '../App.css';
 import ReviewContainer from './ReviewContainer';
-import RestaurantReview from './RestaurantReview';
 
 const Restaurant = ({ feed, reviews, getPlaceDetails }) => {
   const [toggle, toggleButton] = useState(false);
@@ -39,26 +38,6 @@ const Restaurant = ({ feed, reviews, getPlaceDetails }) => {
         />
         <Icon src={expand} onClick={() => handleDropDown(feed.place_id)} />
         {toggle ? <ReviewContainer reviews={reviews} reviews={reviews} /> : null}
-        {/* {!toggle ? <RestaurantReview reviews={reviews} /> : null} */}
-        {/* {!toggle ? (<div>
-          {reviews.map((review, index) => {
-            return <div key={index}>
-              <h3>{review.author_name}</h3>
-              <p>{review.text}</p>
-              <Rating
-                name="half-rating"
-                precision={0.5}
-                value={review.rating}
-                size="small"
-                readOnly
-              />
-
-              <button type="button">Add Review</button>
-            </div>
-          })}
-
-        </div>) : null} */}
-
       </div>
     </Div>
   )

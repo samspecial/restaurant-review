@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import RestaurantReview from "./RestaurantReview";
+import { Button } from './RestaurantStyles';
 
 const ReviewContainer = ({ reviews }) => {
-  
+
   return (
     <div className="contain">
 
@@ -10,7 +11,7 @@ const ReviewContainer = ({ reviews }) => {
         return < RestaurantReview key={index} review={review} />
       })
       }
-       <button type="button">Add Review</button>
+      <Button type="button">Add Review</Button>
     </div >
 
   )
