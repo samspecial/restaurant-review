@@ -48,6 +48,7 @@ const AddRestaurant = ({ feeds, location, setFeeds, onClose }) => {
 
   return (
     <Form onSubmit={addRestaurant}>
+      <h3>Add Your Restaurant</h3>
       <label htmlFor='restaurantName'>Restaurant Name:
     <Input id='restaurantName'
           type='text'

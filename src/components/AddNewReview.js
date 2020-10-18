@@ -38,7 +38,7 @@ export const AddNewReview = ({ reviews, setReview, reviewForm, setReviewForm }) 
   }
 
   return (
-    <Form className={reviewForm ? "form-review" : "hide"} onSubmit={addReview}>
+    <Form review className={reviewForm ? "form-review" : "hide"} onSubmit={addReview}>
       <h3>Your Review Counts!!!</h3>
       <label htmlFor='author'>Author:
     <Input id='author'

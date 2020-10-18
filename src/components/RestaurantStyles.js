@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Form = styled.form`
-width:50%;
+width:${props => (props.review ? "50%" : "100%")};
 height:300px;
 box-shadow:0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.24),0 10px 10px rgba(0,0,0,0.23), 0 10px 10px rgba(0,0,0,0.22);
 padding:1rem 0.5rem;
@@ -49,7 +49,7 @@ font-size:12px;
 border:none;
 box-shadow: 4px 8px 8px grey, 2px 6px 6px #34628C;
 border-radius:5px;
-margin-top:30px;
+margin-top:20px;
 margin-right: 15px;
 opacity:0;
 animation:fadeUp 0.2s ease-in-out 0.7s forwards;
@@ -76,9 +76,10 @@ animation:fadeUp 0.2s ease-in-out 0.7s forwards;
 } 
 
 @media only screen and (min-width:769px){
-     width:150px;
-     font-size:16px;
-     font-weight:bold;
-     height:45px;
+     width:auto;
+     font-size:12px;
+     font-weight:600;
+     height:30px;
+     padding:7px 10px;
 }
 `;
