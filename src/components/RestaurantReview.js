@@ -5,7 +5,7 @@ import styled from "styled-components";
 const RestaurantReview = ({ review }) => {
   return <Div>
     <h2>{review.author_name}</h2>
-    <p>{review.text.length >= 30 ? review.text.substring(0, 30) : review.text}</p>
+    <p>{review.text.length >= 70 ? review.text.substring(0, 70) : review.text}</p>
     <Rating
       name="half-rating"
       precision={0.5}
@@ -26,7 +26,7 @@ const Div = styled.div`
 // padding:0.5rem;
 
 h2{
-  font - weight: 700;
+  font-weight: 700;
   font-size:1rem;
   margin:5px 0;
   color:#222;

@@ -24,7 +24,7 @@ import './reset.css';
 import './App.css';
 const libraries = ["places"]
 const mapContainerStyle = {
-  width: '70%',
+  width: '65%',
   height: '80vh',
   position: 'relative'
 }
@@ -166,6 +166,8 @@ const App1 = () => {
         }>
           <AddRestaurant
             addRestaurants={addRestaurants}
+            feeds={feeds}
+            setFeeds={setFeeds}
             location={
               { lat, lng }
             }

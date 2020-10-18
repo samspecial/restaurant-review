@@ -12,17 +12,16 @@ const RestaurantContainer = ({ feeds, filterRating }) => {
       .then(
       (response) => {
         let placesResult = response.data.result.reviews;
-        console.log(place_id)
         setReview(placesResult)
       })
   })
 
   return (
     <div className="contain">
-      {feeds.map((feed, index) =>
+      {feeds.map((feed) =>
         feed.rating <= filterRating ? (
-          <Restaurant key={index} feed={feed} reviews={allReviews} fiterRating={filterRating} getPlaceDetails={getPlaceDetails} />
-        ) : (<span key={index}></span>))
+          <Restaurant key={feed.place_id} feed={feed} reviews={allReviews} fiterRating={filterRating} getPlaceDetails={getPlaceDetails} setReview={setReview} />
+        ) : (<span key={feed.place_id}></span>))
 
       }
     </div>

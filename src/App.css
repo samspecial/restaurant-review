@@ -16,8 +16,8 @@ width:100%;
 }
 
 .restaurant-group{
-  width:30%;
-  
+  width:35%;
+  position:relative;
 }
 
 /* Overlay for Hero Section */
@@ -42,4 +42,20 @@ z-index:3;
   height:fit-content;
   display:flex;
   flex-wrap:wrap;
+
+}
+
+/* Review Form */
+
+.hide{
+  display:none;
+}
+
+.form-review{
+  display:block;
+  position:absolute;
+  width:50%;
+  left:50%;
+  transform:translateX(-50%);
+  margin:0 auto;
 }

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Form = styled.form`
-width:100%;
+width:50%;
 height:300px;
 box-shadow:0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.24),0 10px 10px rgba(0,0,0,0.23), 0 10px 10px rgba(0,0,0,0.22);
 padding:1rem 0.5rem;
@@ -12,6 +12,13 @@ align-items:flex-start;
 background-color:white !important;
 margin:0 auto;
 
+h3{
+    font-weight:600;
+    align-text:left;
+    color:#34628C;
+    margin-bottom:20px;
+}
+
 label{
     margin-bottom:0.5rem;
     font-size:0.85rem;
@@ -20,15 +27,15 @@ label{
 
 export const Input = styled.input`
 width:100%;
-height:40px;
+height:30px;
 background:transparent;
-color: #3F3D56;
+color: #34628C;
 border-radius:5px;
-border: 1px solid #3F3D56;
-padding-top:15px;
+border: 1px solid #34628C;
+padding-top:5px;
 padding-left:5px;
 display:block;
-font-weight:bold;
+font-weight:400;
 margin-top:0.7rem;
 `;
 
@@ -36,20 +43,20 @@ export const Button = styled.button`
 width:100px;
 height:30px;
 padding:5px 7px;
-background-color:#3F3D56;
+background-color:#34628C;
 color:white;
 font-size:12px;
 border:none;
-box-shadow: 4px 8px 8px grey, 2px 6px 6px #3F3D56;
+box-shadow: 4px 8px 8px grey, 2px 6px 6px #34628C;
 border-radius:5px;
 margin-top:30px;
 margin-right: 15px;
 opacity:0;
-animation:fadeUp 0.5s ease-in-out 0.7s forwards;
+animation:fadeUp 0.2s ease-in-out 0.7s forwards;
 
 :hover{
     background-color:white;
-    color:#3F3D56;
+    color:#34628C;
 }
 @keyframes fadeUp{
     from{

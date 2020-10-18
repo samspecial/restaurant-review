@@ -4,7 +4,7 @@ import Rating from "@material-ui/lab/Rating";
 import { Form, Input, Button } from './RestaurantStyles';
 import uuid from 'react-uuid';
 
-const AddRestaurant = ({ addRestaurants, location, jsonRestaurants, onClose }) => {
+const AddRestaurant = ({ feeds, location, setFeeds, onClose }) => {
 
   //Setting state for new restaurants
   const [values, handleChange] = useRestaurant({
@@ -39,9 +39,9 @@ const AddRestaurant = ({ addRestaurants, location, jsonRestaurants, onClose }) =
     const { name, rating, vicinity } = newRestaurant;
     if (!name || !vicinity || !rating) return alert("Empty fields not allowed");
 
-    let cloneFeeds = JSON.parse(JSON.stringify(jsonRestaurants));
+    let cloneFeeds = JSON.parse(JSON.stringify(feeds));
     cloneFeeds.push(newRestaurant);
-    addRestaurants(cloneFeeds);
+    setFeeds(cloneFeeds);
     alert(`${name} added Successful. check restaurant section`);
     onClose();
   }

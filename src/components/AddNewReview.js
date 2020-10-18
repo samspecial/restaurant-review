@@ -1,33 +1,66 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useRestaurant } from './useRestaurant';
 import Rating from "@material-ui/lab/Rating";
 import { Form, Input, Button } from './RestaurantStyles';
+import '../App.css';
 
-export const AddNewReview = () => {
-  const [values, handleChange] = useRestaurant({});
+export const AddNewReview = ({ reviews, setReview, reviewForm, setReviewForm }) => {
+  const [values, handleChange] = useRestaurant({
+    author: "",
+    text: "",
+    rating: ""
+  });
+
+  const [star, setRating] = useState(0);
+
+  const changeRating = (event, newValue) => {
+    setRating(newValue);
+  }
+  // Create a new Review Object based on user input
+  const newReview = {
+    author_name: values.author,
+    text: values.text,
+    rating: star,
+  }
+  // Close Review Form after sunmission
+  const closeReviewForm = () => {
+    setReviewForm(!reviewForm);
+  }
+
+  const addReview = event => {
+    event.preventDefault();
+    const { author_name, text, rating } = newReview;
+    if (!author_name || !text || !rating) return alert("Empty fields not allowed");
+    let cloneReviews = JSON.parse(JSON.stringify(reviews));
+    cloneReviews.push(newReview);
+    setReview(cloneReviews);
+    closeReviewForm();
+  }
+
   return (
-    <Form onSubmit={addRestaurant}>
-      <label htmlFor='restaurantName'>Restaurant Name:
-    <input id='restaurantName'
+    <Form className={reviewForm ? "form-review" : "hide"} onSubmit={addReview}>
+      <h3>Your Review Counts!!!</h3>
+      <label htmlFor='author'>Author:
+    <Input id='author'
           type='text'
-          name='restaurantName'
+          name='author'
           onChange={handleChange}
-          value={values.restaurantName}
+          value={values.author}
         />
       </label>
-      <label htmlFor='vicinity'>Address:
-    <input id='vicinity'
+      <label htmlFor='text'>Address:
+    <Input id='text'
           type='text'
-          name='vicinity'
+          name='text'
           onChange={handleChange}
-          value={values.vicinity}
+          value={values.text}
         /></label>
       <Rating
-        name="rating"
-        defaultValue={0}
-        value={values.rating}
-        onChange={handleChange} />
-      <button type='submit'>Add Restaurant</button>
+        name="simple-controlled"
+        precision={1}
+        value={star}
+        onChange={changeRating} />
+      <Button onClose={closeReviewForm} type='submit'>Submit Review</Button>
     </Form>
   )
 }
