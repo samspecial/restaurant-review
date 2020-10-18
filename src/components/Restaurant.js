@@ -11,6 +11,7 @@ const Restaurant = ({ feed, reviews, getPlaceDetails, setReview }) => {
   const [toggle, toggleButton] = useState(false);
 
   const handleDropDown = (place_id) => {
+    if (typeof place_id === "number") return alert("Review can not be added at the moment.\nPlease try again later.");
     toggleButton(!toggle)
     getPlaceDetails(place_id);
   }

@@ -106,8 +106,8 @@ const App1 = () => {
       )
       .then((res) => {
         let Feeds = res.data.results;
-
-        setFeeds(Feeds);
+        let allRestaurants = jsonRestaurants.concat(Feeds)
+        setFeeds(allRestaurants);
       });
   }, [currentPosition.lat, currentPosition.lng]);
 
