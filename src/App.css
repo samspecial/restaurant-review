@@ -45,6 +45,16 @@ z-index:3;
 
 }
 
+.restaurant-heading{
+  display:flex;
+  justify-content: space-around;
+  align-items: center;
+  padding:20px 0;
+}
+
+.restaurant-heading label{
+  font-weight: bold;
+}
 /* Review Form */
 
 .hide{

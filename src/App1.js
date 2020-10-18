@@ -25,7 +25,7 @@ import './App.css';
 const libraries = ["places"]
 const mapContainerStyle = {
   width: '65%',
-  height: '80vh',
+  height: 'auto',
   position: 'relative'
 }
 
@@ -179,16 +179,18 @@ const App1 = () => {
 
     </GoogleMap>
     <div className="restaurant-group">
-
-      <label htmlFor='restaurants'> Filter by Review: </label>
-      <Rating name="half-rating"
-        precision={
-          0.5
-        }
-        value={
-          filterRating.filterRatingValue
-        }
-        onChange={onFilterRatingChange} />
+      <span className="restaurant-heading">
+        <label htmlFor='restaurants'> Filter Nearby Restaurants by Review: </label>
+        <Rating name="half-rating"
+          precision={
+            0.5
+          }
+          value={
+            filterRating.filterRatingValue
+          }
+          onChange={onFilterRatingChange}
+        />
+      </span>
 
       < RestaurantContainer feeds={feeds} filterRating={filterRating.filterRatingValue} />
 
