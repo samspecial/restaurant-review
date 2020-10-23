@@ -34,6 +34,7 @@ export const AddNewReview = ({ reviews, setReview, reviewForm, setReviewForm }) 
     let cloneReviews = JSON.parse(JSON.stringify(reviews));
     cloneReviews.push(newReview);
     setReview(cloneReviews);
+    alert("Review successfully added.");
     closeReviewForm();
   }
 
@@ -48,7 +49,7 @@ export const AddNewReview = ({ reviews, setReview, reviewForm, setReviewForm }) 
           value={values.author}
         />
       </label>
-      <label htmlFor='text'>Address:
+      <label htmlFor='text'>Comment:
     <Input id='text'
           type='text'
           name='text'

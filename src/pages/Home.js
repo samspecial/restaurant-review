@@ -1,7 +1,7 @@
 import React from 'react';
 import Navigation from '../components/Navigation';
 import '../App.css'
-import App1 from '../App1';
+import MapContainer from '../MapContainer';
 import HeroSection from '../components/HeroSection';
 
 const Home = () => {
@@ -14,7 +14,7 @@ const Home = () => {
           <HeroSection />
         </div>
       </div>
-      <App1 />
+      <MapContainer />
     </div>
   )
 }

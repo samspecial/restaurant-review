@@ -7,7 +7,6 @@ import '../App.css';
 const ReviewContainer = ({ reviews, setReview }) => {
   // Set the state of the Review Form
   const [reviewForm, setReviewForm] = useState(false)
-  console.log(reviews)
   const showReviewForm = event => {
     event.preventDefault();
     setReviewForm(!reviewForm);

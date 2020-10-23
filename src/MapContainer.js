@@ -34,12 +34,12 @@ const options = {
   zoomControl: true
 }
 
-const App1 = () => {
+const MapContainer = () => {
   const {
       isLoaded,
     loadError
     } = useLoadScript({
-      googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+      googleMapsApiKey: "AIzaSyAMDtC9Z6uMrTV_NsWjjdeskdGE5W-hITY",
       libraries
     })
 
@@ -198,4 +198,4 @@ const App1 = () => {
   </div>
 }
 
-export default App1;
+export default MapContainer;
