@@ -22,11 +22,21 @@ const Restaurant = ({ feed }) => {
       })
   })
 
+  // Get StreetView Static Image
+  const getStreetViewImage = (lat, lng) => {
+    axios.get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/streetview?size=600x300&location=${lat},${lng}&heading=151.78&pitch=-0.76&key=key=AIzaSyAMDtC9Z6uMrTV_NsWjjdeskdGE5W-hITY&signature=YOUR_SIGNATURE`)
+      .then(
+      (response) => {
+        let streetViewImage = response.data;
+      })
+  }
+
   // Click to see reviews
   const handleDropDown = (place_id) => {
     if (typeof place_id === "number") return alert("Review not available at the moment.\nPlease try again later.");
     toggleButton(!toggle)
     getPlaceDetails(place_id);
+    getStreetViewImage(feed.geometry.location.lat, feed.geometry.location.lng);
   }
 
   // Review Form Event Handler
@@ -49,7 +59,9 @@ const Restaurant = ({ feed }) => {
           readOnly
         />
           <Icon src={expand} onClick={() => handleDropDown(feed.place_id)} /></span>
-        {toggle ? <><img src="https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png" alt="Street View" /> <ReviewContainer reviews={allReviews} getPlaceDetails={getPlaceDetails} setReview={setReview} /></> : null}
+        {toggle ? <>
+          {/* <img src={getStreetViewImage(feed.geometry.location.lat, feed.geometry.location.lng)} alt="Street View Image" /> */}
+          <img src="https://lh5.googleusercontent.com/p/AF1QipMfCQ-dXE9EqgiWkJr9QQRshjKpDmPAjzWel7fE=w408-h305-k-no" alt="Street View" /> <ReviewContainer reviews={allReviews} getPlaceDetails={getPlaceDetails} setReview={setReview} /></> : null}
       </div>
     </Div>
   )
