@@ -39,7 +39,7 @@ const MapContainer = () => {
       isLoaded,
     loadError
     } = useLoadScript({
-      googleMapsApiKey: "AIzaSyAMDtC9Z6uMrTV_NsWjjdeskdGE5W-hITY",
+      googleMapsApiKey: "AIzaSyAqOUWrdqXxfz82KxzEh8ef_RhUFai5od8",
       libraries
     })
 
@@ -102,7 +102,7 @@ const MapContainer = () => {
   useEffect(() => {
     axios
       .get(
-      `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${currentPosition.lat},${currentPosition.lng}&radius=2000&type=restaurant&key=AIzaSyAMDtC9Z6uMrTV_NsWjjdeskdGE5W-hITY`
+      `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${currentPosition.lat},${currentPosition.lng}&radius=2000&type=restaurant&key=AIzaSyAqOUWrdqXxfz82KxzEh8ef_RhUFai5od8`
       )
       .then((res) => {
         let Feeds = res.data.results;
