@@ -14,7 +14,7 @@ const Restaurant = ({ feed }) => {
   const [allReviews, setReview] = useState([]);
 
   const getPlaceDetails = ((place_id) => {
-    axios.get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?place_id=${place_id}&fields=name,rating,reviews,formatted_phone_number&key=AIzaSyA3pXEQOhjrbzcdYXvB-K6T336pRJx0XJ0`)
+    axios.get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?place_id=${place_id}&fields=name,rating,reviews,formatted_phone_number&key=AIzaSyBgFrVwcxGlSoiprURIx_iHcTNK6Ej3AAo`)
       .then(
       (response) => {
         let placesResult = response.data.result.reviews;
@@ -24,7 +24,7 @@ const Restaurant = ({ feed }) => {
 
   // Get StreetView Static Image
   const getStreetViewImage = (lat, lng) => {
-    axios.get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/streetview?size=600x300&location=${lat},${lng}&heading=151.78&pitch=-0.76&key=AIzaSyA3pXEQOhjrbzcdYXvB-K6T336pRJx0XJ0&signature=YOUR_SIGNATURE`)
+    axios.get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/streetview?size=600x300&location=${lat},${lng}&heading=151.78&pitch=-0.76&key=AIzaSyBgFrVwcxGlSoiprURIx_iHcTNK6Ej3AAo&signature=YOUR_SIGNATURE`)
       .then(
       (response) => {
         let streetViewImage = response.data;
